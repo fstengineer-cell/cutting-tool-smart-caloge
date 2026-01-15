@@ -20,7 +20,8 @@
             --shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif; background: var(--bg); margin: 0; color: var(--text); padding-bottom: 40px; }
+        body { font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif; background: var(--bg); margin: 0; color: var(--text); padding-bottom: 60px; }
+        html { scroll-behavior: smooth; }
 
         /* --- 2. HEADER --- */
         header { 
@@ -39,9 +40,9 @@
         /* --- 3. CONTAINER & LAYOUT --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
-        /* --- 4. FILTER SECTION (Responsive) --- */
+        /* --- 4. FILTER SECTION --- */
         .filter-toggle {
-            display: none; /* Desktop ซ่อนปุ่มนี้ */
+            display: none; /* Desktop hides this */
             width: 100%; padding: 12px; background: white; border: 1px solid #ddd;
             color: var(--primary); font-weight: bold; border-radius: 8px; margin-bottom: 15px;
             cursor: pointer; text-align: center; box-shadow: var(--shadow);
@@ -86,7 +87,6 @@
 
         .product-grid { 
             display: grid; 
-            /* Responsive Grid Logic */
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
             gap: 20px; 
         }
@@ -150,23 +150,45 @@
         .res-row:last-child { border-bottom: none; padding-bottom: 0; }
         .res-val { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
 
-        /* --- 8. MOBILE RESPONSIVE TWEAKS --- */
+        /* --- 8. SCROLL TOP BUTTON --- */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            font-size: 24px;
+            border: none;
+            outline: none;
+            background-color: var(--accent);
+            color: white;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        #scrollTopBtn:hover {
+            transform: scale(1.1);
+            background-color: #d35400;
+        }
+
+        /* --- 9. MOBILE RESPONSIVE TWEAKS --- */
         @media (max-width: 768px) {
-            .filter-toggle { display: block; } /* Show toggle button on mobile */
-            .filter-box { display: none; } /* Hide filter box by default */
+            .filter-toggle { display: block; }
+            .filter-box { display: none; }
             .filter-box.active { display: block; animation: fadeIn 0.3s; }
             
             .container { padding: 15px; }
             .card-img-box { height: 150px; }
-            
-            /* Make grid 2 columns on tablets/large phones */
             .product-grid { grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); gap: 10px; }
-            
             h1 { font-size: 1rem; }
         }
 
         @media (max-width: 480px) {
-            /* Full width cards on very small screens if needed, or keep 2 cols */
             .product-grid { grid-template-columns: 1fr; } 
         }
 
@@ -274,6 +296,8 @@
 
 </div>
 
+<button id="scrollTopBtn" onclick="scrollToTop()" title="Go to top">↑</button>
+
 <div class="modal-overlay" id="calcModal" onclick="if(event.target===this) closeModal()">
     <div class="modal-box">
         <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -304,7 +328,7 @@
         });
     }
 
-    // --- DATA (Logic Update: Limits + Excel Data) ---
+    // --- DATA ---
     const tools = [
         // ALUMINUM
         { id: "gkz", name: "GKZ Drill", cat: "al", link: "https://www.c-max.co.jp/en/products/gkdrill.html", img: "images/gkz_main.jpg", func: "Drill", proc: "General Hole Cutting", hole: { cored: "Good", solid: "Excellent", through:"Good" }, perf: { rough: "Good", pos: "Good", circ: "Good" }, feat_en: "Excellent straightness even in cored holes. DLC coating.", feat_th: "รูตรงเยี่ยมแม้ในรูหล่อ เคลือบ DLC ทนทาน", calc: { vc_min: 50, vc_max: 250, f_min: 0.02, f_max: 0.04, f_mode: "fac" } },
@@ -341,6 +365,7 @@
             if(matFilter !== 'all' && t.cat !== matFilter) return;
 
             let pass = true;
+            // Interdependent Filter Logic
             const grouped = {};
             filters.forEach(f => {
                 if(!grouped[f.key]) grouped[f.key] = [];
@@ -403,7 +428,6 @@
 
     // --- UI HELPERS ---
     function updateFilterUI() {
-        // Logic: Disabled styling check (Simplified for performance)
         const boxes = document.querySelectorAll('.flt');
         boxes.forEach(box => box.parentElement.classList.remove('disabled'));
     }
@@ -426,6 +450,20 @@
 
     document.querySelectorAll('.flt').forEach(c => c.addEventListener('change', render));
 
+    // --- SCROLL TOP LOGIC ---
+    window.onscroll = function() {
+        const btn = document.getElementById("scrollTopBtn");
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btn.style.display = "flex";
+        } else {
+            btn.style.display = "none";
+        }
+    };
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     // --- CALCULATOR ---
     let actTool = null;
     function openCalc(id) {
@@ -434,7 +472,8 @@
         document.getElementById('inp-dia').value = '';
         document.getElementById('res-vc').innerText = `${actTool.calc.vc_min}~${actTool.calc.vc_max}`;
         document.getElementById('res-feed').innerText = '-';
-        document.getElementById('calcModal').style.display = 'flex';
+        document.querySelector('.modal-overlay').style.display = 'flex';
+        document.getElementById('inp-dia').focus();
     }
 
     function calculate() {
@@ -450,7 +489,6 @@
             f_max = actTool.calc.f_max * d;
         }
 
-        // Limit
         if(actTool.calc.f_limit) {
             f_min = Math.min(f_min, actTool.calc.f_limit);
             f_max = Math.min(f_max, actTool.calc.f_limit);
@@ -463,7 +501,7 @@
     }
 
     function closeModal() {
-        document.getElementById('calcModal').style.display = 'none';
+        document.querySelector('.modal-overlay').style.display = 'none';
     }
 
     render();
