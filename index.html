@@ -52,7 +52,7 @@
         
         .sub-group { margin-bottom: 15px; }
         
-        /* Filter Images (Large Size) */
+        /* Filter Images (Large) */
         .sub-head-box { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; background: #f9f9f9; padding: 10px; border-radius: 8px; }
         .sub-head-img { 
             width: 80px; 
@@ -81,7 +81,7 @@
 
         .dc-header { display: flex; padding: 15px; border-bottom: 1px solid #eee; background: #fff; align-items: center; gap: 15px; }
         
-        /* Tool Image (Large Size) */
+        /* Tool Image (Large) */
         .dc-img { 
             width: 140px; 
             height: 140px; 
@@ -117,34 +117,26 @@
 
         /* --- SCROLL TOP BUTTON --- */
         #scrollTopBtn {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            z-index: 9999;
-            font-size: 20px;
-            border: none;
-            outline: none;
-            background-color: var(--accent);
-            color: white;
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s, background-color 0.3s, opacity 0.3s;
-            -webkit-tap-highlight-color: transparent;
+            position: fixed; bottom: 30px; right: 20px; z-index: 9999;
+            font-size: 20px; border: none; outline: none; background-color: var(--accent); color: white;
+            cursor: pointer; width: 50px; height: 50px; border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; align-items: center; justify-content: center;
+            transition: transform 0.3s, background-color 0.3s, opacity 0.3s; -webkit-tap-highlight-color: transparent;
         }
         #scrollTopBtn:active { transform: scale(0.95); }
 
         /* --- MODAL --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; display: none; justify-content: center; align-items: center; }
-        .modal-box { background: white; width: 90%; max-width: 400px; padding: 25px; border-radius: 12px; position: relative; animation: popUp 0.3s; }
+        .modal-box { background: white; width: 90%; max-width: 450px; padding: 25px; border-radius: 12px; position: relative; animation: popUp 0.3s; }
         .calc-input { width: 100%; padding: 12px; margin: 15px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 1.2rem; text-align: center; }
-        .res-grid { display: grid; grid-template-columns: 1fr; gap: 10px; background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
-        .res-val { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+        
+        /* Updated Grid for Calculator Results */
+        .res-grid { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; 
+            background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; 
+        }
+        .res-col { display: flex; flex-direction: column; justify-content: center; }
+        .res-val { font-size: 1.25rem; font-weight: 800; color: var(--primary); margin-top: 5px; }
 
         @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
@@ -173,14 +165,12 @@
             
             <div class="f-col">
                 <h4 id="hFund">1. Fundamental Info</h4>
-                
                 <div class="sub-group">
                     <span class="sub-title" id="tFunc">Function</span>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="func" value="Drill"> <span data-t="Drill">Drill</span></label>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="func" value="Reamer"> <span data-t="Reamer">Reamer</span></label>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="func" value="Drill & Reamer"> <span data-t="Drill & Reamer">Drill & Reamer</span></label>
                 </div>
-                
                 <div class="sub-group">
                     <span class="sub-title" id="tProc">Target Process</span>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="proc" value="General"> <span data-t="General">General</span></label>
@@ -192,7 +182,6 @@
 
             <div class="f-col">
                 <h4 id="hHole">2. Prepared Hole</h4>
-                
                 <div class="sub-group">
                     <div class="sub-head-box">
                         <img src="images/cored.jpg" class="sub-head-img" alt="Cored">
@@ -203,7 +192,6 @@
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="hole_cored" value="Fair"> <span data-t="Fair">Fair</span></label>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="hole_cored" value="No"> <span data-t="No">No</span></label>
                 </div>
-
                 <div class="sub-group">
                     <div class="sub-head-box">
                         <img src="images/solid.jpg" class="sub-head-img" alt="Solid">
@@ -213,7 +201,6 @@
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="hole_solid" value="Good"> <span data-t="Good">Good</span></label>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="hole_solid" value="Fair"> <span data-t="Fair">Fair</span></label>
                 </div>
-
                 <div class="sub-group">
                     <div class="sub-head-box">
                         <img src="images/blind.jpg" class="sub-head-img" alt="Blind">
@@ -223,7 +210,6 @@
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="hole_blind" value="Good"> <span data-t="Good">Good</span></label>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="hole_blind" value="Fair"> <span data-t="Fair">Fair</span></label>
                 </div>
-
                 <div class="sub-group">
                     <div class="sub-head-box">
                         <img src="images/through.jpg" class="sub-head-img" alt="Through">
@@ -235,20 +221,17 @@
 
             <div class="f-col">
                 <h4 id="hPerf">3. Performance</h4>
-                
                 <div class="sub-group">
                     <span class="sub-title" id="tRough">Roughness</span>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="perf_rough" value="Excellent"> <span data-t="Excellent">Excellent</span></label>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="perf_rough" value="Good"> <span data-t="Good">Good</span></label>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="perf_rough" value="Fair"> <span data-t="Fair">Fair</span></label>
                 </div>
-                
                 <div class="sub-group">
                     <span class="sub-title" id="tPos">Position</span>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="perf_pos" value="Excellent"> <span data-t="Excellent">Excellent</span></label>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="perf_pos" value="Good"> <span data-t="Good">Good</span></label>
                 </div>
-                
                 <div class="sub-group">
                     <span class="sub-title" id="tCirc">Circularity</span>
                     <label class="chk-label"><input type="checkbox" class="flt" data-key="perf_circ" value="Excellent"> <span data-t="Excellent">Excellent</span></label>
@@ -277,13 +260,22 @@
         <input type="number" id="inp-dia" class="calc-input" placeholder="Hole Dia (mm)" oninput="calculate()">
         
         <div class="res-grid">
-            <div>
-                <div id="lblSpeed" style="font-size:0.8rem; color:#666;">Speed (m/min)</div>
+            <div class="res-col">
+                <div id="lblVc" style="font-size:0.8rem; color:#666;">Cutting Speed (m/min)</div>
                 <div id="res-vc" class="res-val">-</div>
             </div>
-            <div style="border-top:1px solid #eee; padding-top:10px; margin-top:5px;">
-                <div id="lblFeed" style="font-size:0.8rem; color:#666;">Feed (mm/rev)</div>
-                <div id="res-feed" class="res-val">-</div>
+            <div class="res-col">
+                <div id="lblRPM" style="font-size:0.8rem; color:#666;">Spindle Speed (RPM)</div>
+                <div id="res-rpm" class="res-val">-</div>
+            </div>
+            
+            <div class="res-col" style="border-top:1px solid #eee; padding-top:10px;">
+                <div id="lblFeedRev" style="font-size:0.8rem; color:#666;">Feed Rate (mm/rev)</div>
+                <div id="res-feed-rev" class="res-val">-</div>
+            </div>
+            <div class="res-col" style="border-top:1px solid #eee; padding-top:10px;">
+                <div id="lblFeedMin" style="font-size:0.8rem; color:#666;">Feed Rate (mm/min)</div>
+                <div id="res-feed-min" class="res-val">-</div>
             </div>
         </div>
     </div>
@@ -346,9 +338,12 @@
             
             btnInfo: "More Information",
             btnCalc: "⚡ Calculate",
+            
             calcTitle: "Cutting Calculator",
-            lblSpeed: "Speed (m/min)",
-            lblFeed: "Feed (mm/rev)"
+            lblVc: "Cutting Speed (m/min)",
+            lblRPM: "Spindle Speed (RPM)",
+            lblFeedRev: "Feed Rate (mm/rev)",
+            lblFeedMin: "Feed Rate (mm/min)"
         },
         TH: {
             tabs: ["ทั้งหมด", "อะลูมิเนียม", "เหล็ก/เหล็กหล่อ"],
@@ -395,8 +390,10 @@
             btnCalc: "⚡ คำนวณ",
             
             calcTitle: "โปรแกรมคำนวณ",
-            lblSpeed: "ความเร็วตัด (m/min)",
-            lblFeed: "อัตราป้อน (mm/rev)"
+            lblVc: "ความเร็วตัด (m/min)",
+            lblRPM: "ความเร็วรอบ (RPM)",
+            lblFeedRev: "อัตราป้อน (mm/rev)",
+            lblFeedMin: "อัตราป้อน (mm/min)"
         }
     };
 
@@ -438,9 +435,9 @@
 
     // --- MAIN RENDER ---
     function render() {
-        const t = i18n[curLang]; // Get current language dictionary
+        const t = i18n[curLang]; 
         
-        // 1. Update UI Static Texts
+        // Update Static Texts
         document.getElementById('btnFilterToggle').innerText = t.btnFilter;
         document.getElementById('btnReset').innerText = t.btnReset;
         document.getElementById('tabAll').innerText = t.tabs[0];
@@ -461,7 +458,7 @@
         document.getElementById('tPos').innerText = t.tPos;
         document.getElementById('tCirc').innerText = t.tCirc;
 
-        // Update Labels inside Filter
+        // Update Dynamic Labels
         document.querySelectorAll('span[data-t]').forEach(span => {
             const key = span.dataset.t;
             if(t[key]) span.innerText = t[key];
@@ -469,10 +466,12 @@
 
         // Update Modal
         document.getElementById('calcTitle').innerText = t.calcTitle;
-        document.getElementById('lblSpeed').innerText = t.lblSpeed;
-        document.getElementById('lblFeed').innerText = t.lblFeed;
+        document.getElementById('lblVc').innerText = t.lblVc;
+        document.getElementById('lblRPM').innerText = t.lblRPM;
+        document.getElementById('lblFeedRev').innerText = t.lblFeedRev;
+        document.getElementById('lblFeedMin').innerText = t.lblFeedMin;
 
-        // 2. Render Cards
+        // Render Cards
         const grid = document.getElementById('main-grid');
         grid.innerHTML = "";
         
@@ -551,31 +550,60 @@
     function resetFilters() { document.querySelectorAll('.flt').forEach(c=>c.checked=false); render(); }
     document.querySelectorAll('.flt').forEach(c => c.addEventListener('change', render));
 
+    // --- CALCULATOR ---
     let actTool = null;
     function openCalc(id) {
         actTool = tools.find(t=>t.id===id);
         document.getElementById('calc-tool-name').innerText = actTool.name;
         document.getElementById('inp-dia').value = "";
-        document.getElementById('res-vc').innerText = actTool.calc.vc_min + "~" + actTool.calc.vc_max;
-        document.getElementById('res-feed').innerText = "-";
+        
+        // Reset Display
+        document.getElementById('res-vc').innerText = actTool.calc.vc_min + " ~ " + actTool.calc.vc_max;
+        document.getElementById('res-rpm').innerText = "-";
+        document.getElementById('res-feed-rev').innerText = "-";
+        document.getElementById('res-feed-min').innerText = "-";
+        
         document.getElementById('calcModal').style.display = "flex";
         document.getElementById('inp-dia').focus();
     }
+
     function calculate() {
         const d = parseFloat(document.getElementById('inp-dia').value);
         if(!d || d<=0) return;
         
-        let f_min, f_max;
-        if(actTool.calc.f_mode === 'fix') { f_min=actTool.calc.f_min; f_max=actTool.calc.f_max; }
-        else { f_min=actTool.calc.f_min*d; f_max=actTool.calc.f_max*d; }
+        // 1. Calculate Feed per Rev (Limits applied)
+        let f_min_rev, f_max_rev;
+        if(actTool.calc.f_mode === 'fix') { 
+            f_min_rev = actTool.calc.f_min; 
+            f_max_rev = actTool.calc.f_max; 
+        } else { 
+            f_min_rev = actTool.calc.f_min * d; 
+            f_max_rev = actTool.calc.f_max * d; 
+        }
+        if(actTool.calc.f_limit) { 
+            f_min_rev = Math.min(f_min_rev, actTool.calc.f_limit); 
+            f_max_rev = Math.min(f_max_rev, actTool.calc.f_limit); 
+        }
+
+        // 2. Calculate RPM
+        const rpm_min = Math.round((actTool.calc.vc_min * 1000) / (Math.PI * d));
+        const rpm_max = Math.round((actTool.calc.vc_max * 1000) / (Math.PI * d));
+
+        // 3. Calculate Feed per Min (RPM * FeedRev)
+        const f_min_mmin = Math.round(rpm_min * f_min_rev);
+        const f_max_mmin = Math.round(rpm_max * f_max_rev);
+
+        // 4. Update UI
+        document.getElementById('res-vc').innerText = `${actTool.calc.vc_min} ~ ${actTool.calc.vc_max}`;
+        document.getElementById('res-rpm').innerText = (rpm_min === rpm_max) ? rpm_min : `${rpm_min} ~ ${rpm_max}`;
         
-        if(actTool.calc.f_limit) { f_min=Math.min(f_min, actTool.calc.f_limit); f_max=Math.min(f_max, actTool.calc.f_limit); }
+        const s_f_min = parseFloat(f_min_rev.toFixed(3));
+        const s_f_max = parseFloat(f_max_rev.toFixed(3));
+        document.getElementById('res-feed-rev').innerText = (s_f_min === s_f_max) ? s_f_min : `${s_f_min} ~ ${s_f_max}`;
         
-        document.getElementById('res-vc').innerText = actTool.calc.vc_min + "~" + actTool.calc.vc_max;
-        const s_min = parseFloat(f_min.toFixed(3));
-        const s_max = parseFloat(f_max.toFixed(3));
-        document.getElementById('res-feed').innerText = (s_min===s_max) ? s_min : s_min+"~"+s_max;
+        document.getElementById('res-feed-min').innerText = (f_min_mmin === f_max_mmin) ? f_min_mmin : `${f_min_mmin} ~ ${f_max_mmin}`;
     }
+
     function closeModal() { document.getElementById('calcModal').style.display = "none"; }
 
     // Init
